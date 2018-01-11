@@ -1,15 +1,13 @@
 package ie.uryukyu.ac.jp.e175732e175742;
 
-
 /**
  * 3目並べ（oxゲーム）の実装例（実装途中）。
  *
  * ボードを用意(初期化)し、o手順から置き始め、手順管理をするところまで実装。
  */
-
 public class TicTacToe {
     /**
-     * 何も置かれていない状態: 'e' (empty)
+     * 何置かれていない状態: 'e' (empty)
      * oを置いた状態: 'o'
      * xを置いた状態: 'x'
      */
@@ -100,6 +98,24 @@ public class TicTacToe {
         }else{
             System.out.println("# Current turn: 'o'");
             print();
+        }
+    }
+
+    public void winner_o(int x,int y) {
+        if (turn == true && board[x][y] == 'o') {
+            if (x == 0 && y == 0 || y == 1 || y == 2) {
+                System.out.println("Winner:o");
+            } else if (x == 1 && y == 0 && y == 1 && y == 2) {
+                System.out.println("Winner:o");
+            } else if (x == 2 && y == 0 && y == 1 && y == 2) {
+                System.out.println("Winner:o");
+            } else if (x == 0 && y == 0 && x == 1 && y == 1 && x == 2 && y == 2) {
+                System.out.println("Winner:o");
+            } else if (x == 0 && y == 2 && x == 1 && y == 1 && x == 2 && y == 0) {
+                System.out.println("Winner:o");
+            } else {
+                System.out.println("Draw");
+            }
         }
     }
 }
