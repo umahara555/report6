@@ -33,8 +33,8 @@ public class TicTacToe {
 
         turn = true;
         board = new char[3][3];
-        for(i=0; i<3; i++){
-            for(j=0; j<3; j++){
+        for (i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
                 board[i][j] = 'e';
             }
         }
@@ -47,8 +47,8 @@ public class TicTacToe {
     public void print() {
         int i, j;
         printTurn();
-        for(i=0; i<3; i++){
-            for(j=0; j<3; j++){
+        for (i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
                 System.out.print(board[i][j]);
             }
             System.out.print("\n");
@@ -60,62 +60,87 @@ public class TicTacToe {
      * 現在の手番を出力する。
      */
     public void printTurn() {
-        if( turn == true ){
+        if (turn == true) {
             System.out.println("# Turn: o");
-        }else{
+        } else {
             System.out.println("# Turn: x");
         }
     }
 
     /**
      * ユーザ'o'がボードに手を置く際に使用するメソッド。
+     *
      * @param x ボードの横軸座標, 左から数えたインデックス。
      * @param y ボードの縦軸座標, 上から数えたインデックス。
      */
-    public void handCircle(int x, int y){
-        if( turn == true && board[x][y] == 'e' ){
+    public void handCircle(int x, int y) {
+        if (turn == true && board[x][y] == 'e') {
             board[x][y] = 'o';
-            System.out.printf("# player 'o' pointed at [%d][%d]\n",x,y);
+            System.out.printf("# player 'o' pointed at [%d][%d]\n", x, y);
             print();
             turn = false;
-        }else{
+            //横が揃う
+            if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] == 'o') {
+                System.out.println("Winner:o");
+            } else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][2] == 'o') {
+                System.out.println("Winner:o");
+            } else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][2] == 'o') {
+                System.out.println("Winner:o");
+            }//縦が揃う
+            else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[2][0] == 'o') {
+                System.out.println("Winner:o");
+            } else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[2][1] == 'o') {
+                System.out.println("Winner:o");
+            } else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[2][2] == 'o') {
+                System.out.println("Winner:o");
+            }//斜めが揃う
+            else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == 'o') {
+                System.out.println("Winner:o");
+            } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] == 'o') {
+                System.out.println("Winner:o");
+            }
+        } else {
             System.out.println("# Current turn: 'x'");
             print();
         }
     }
 
-    /**
-     * ユーザ'x'がボードに手を置く際に使用するメソッド。
-     * @param x ボードの横軸座標, 左から数えたインデックス。
-     * @param y ボードの縦軸座標, 上から数えたインデックス。
-     */
-    public void handCross(int x, int y){
-        if( turn == false && board[x][y] == 'e' ){
-            board[x][y] = 'x';
-            System.out.printf("# player 'x' pointed at [%d][%d]\n",x,y);
-            print();
-            turn = true;
-        }else{
-            System.out.println("# Current turn: 'o'");
-            print();
-        }
-    }
 
-    public void winner_o(int x,int y) {
-        if (turn == true && board[x][y] == 'o') {
-            if (x == 0 && y == 0 || y == 1 || y == 2) {
-                System.out.println("Winner:o");
-            } else if (x == 1 && y == 0 && y == 1 && y == 2) {
-                System.out.println("Winner:o");
-            } else if (x == 2 && y == 0 && y == 1 && y == 2) {
-                System.out.println("Winner:o");
-            } else if (x == 0 && y == 0 && x == 1 && y == 1 && x == 2 && y == 2) {
-                System.out.println("Winner:o");
-            } else if (x == 0 && y == 2 && x == 1 && y == 1 && x == 2 && y == 0) {
-                System.out.println("Winner:o");
+        /**
+         * ユーザ'x'がボードに手を置く際に使用するメソッド。
+         *
+         * @param x ボードの横軸座標, 左から数えたインデックス。
+         * @param y ボードの縦軸座標, 上から数えたインデックス。
+         */
+        public void handCross ( int x, int y){
+            if (turn == false && board[x][y] == 'e') {
+                board[x][y] = 'x';
+                System.out.printf("# player 'x' pointed at [%d][%d]\n", x, y);
+                print();
+                turn = true;
+                //横が揃う
+                if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] == 'x') {
+                    System.out.println("Winner:x");
+                } else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][2] == 'x') {
+                    System.out.println("Winner:x");
+                } else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][2] == 'x') {
+                    System.out.println("Winner:x");
+                }//縦が揃う
+                else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[2][0] == 'x') {
+                    System.out.println("Winner:x");
+                } else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[2][1] == 'x') {
+                    System.out.println("Winner:x");
+                } else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[2][2] == 'x') {
+                    System.out.println("Winner:x");
+                }//斜めが揃う
+                else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == 'x') {
+                    System.out.println("Winner:x");
+                } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] == 'x') {
+                    System.out.println("Winner:x");
+                }
             } else {
-                System.out.println("Draw");
+                System.out.println("# Current turn: 'o'");
+                print();
             }
         }
     }
-}
