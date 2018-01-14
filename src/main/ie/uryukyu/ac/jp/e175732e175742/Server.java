@@ -26,7 +26,10 @@ public class Server {
             System.out.println("Waiting for a client ...");
             socket = serverSocket.accept();
 
-            streamIn = new BufferedReader(new InputStreamReader(System.in));
+            //接続確立->クライアントからの入力読み込みのための設定
+            System.out.println("Client accepted: " + socket);
+
+            streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             streamOut = new PrintWriter(socket.getOutputStream(), true);
 
         } catch (IOException ioe){
@@ -35,19 +38,16 @@ public class Server {
     }
 
     public String input(){
-        String line = ""; //入力受け取り
         try {
-            line = streamIn.readLine();
+            return streamIn.readLine();
         } catch (IOException ioe){
             System.out.println("Error: " + ioe.getMessage());
+            return "pass";
         }
-
-        return line;
     }
 
     public void  output(String line){
-        streamOut.write(line); //読み込んだ行を、改行文字追加してサーバへの出力ストリームに書き込む
-        streamOut.flush(); //書き込みが終わるのを待つ
+        streamOut.println(line);
     }
 
     public void close(){
