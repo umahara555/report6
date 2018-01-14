@@ -77,8 +77,9 @@ public class TicTacToe {
         if (turn == true && board[x][y] == 'e') {
             board[x][y] = 'o';
             System.out.printf("# player 'o' pointed at [%d][%d]\n", x, y);
-            print();
             turn = false;
+            print();
+
             //横が揃う
             if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] == 'o') {
                 System.out.println("Winner:o");
@@ -116,8 +117,9 @@ public class TicTacToe {
             if (turn == false && board[x][y] == 'e') {
                 board[x][y] = 'x';
                 System.out.printf("# player 'x' pointed at [%d][%d]\n", x, y);
-                print();
                 turn = true;
+                print();
+
                 //横が揃う
                 if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] == 'x') {
                     System.out.println("Winner:x");
@@ -143,4 +145,12 @@ public class TicTacToe {
                 print();
             }
         }
+
+    public boolean isTurn() {
+        return turn;
     }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
+}

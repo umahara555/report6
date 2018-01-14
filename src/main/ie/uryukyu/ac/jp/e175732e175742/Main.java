@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        boolean turn = false;
+        TicTacToe ttt;
 
         int mode; // Server or Client
         int port = 25565; //使用するポート番号
@@ -24,17 +24,22 @@ public class Main {
                 Server server = new Server(port);
                 server.start();
 
+                ttt = new TicTacToe();
+                ttt.print();
+                int[] xy;
                 while(!line.equals("bye")){
-                    if (turn){
+                    if (ttt.isTurn()){
                         System.out.println("your turn");
                         line = console.readLine();
                         server.output(line);
-                        turn = false;
+                        xy = lol(line);
+                        ttt.handCircle(xy[0], xy[1]);
                     } else {
                         System.out.println("client turn");
                         line = server.input();
                         System.out.println(line);
-                        turn = true;
+                        xy = lol(line);
+                        ttt.handCross(xy[0], xy[1]);
                     }
                 }
 
@@ -47,17 +52,23 @@ public class Main {
                 Client client = new Client(serverName, port);
                 client.start();
 
+                ttt = new TicTacToe();
+//                ttt.setTurn(!ttt.isTurn());
+                ttt.print();
+                int[] xy;
                 while(!line.equals("bye")){
-                    if (!turn){
+                    if (!ttt.isTurn()){
                         System.out.println("your turn");
                         line = console.readLine();
                         client.output(line);
-                        turn = true;
+                        xy = lol(line);
+                        ttt.handCross(xy[0], xy[1]);
                     } else {
                         System.out.println("server turn");
                         line = client.input();
                         System.out.println(line);
-                        turn = false;
+                        xy = lol(line);
+                        ttt.handCircle(xy[0], xy[1]);
                     }
                 }
 
@@ -69,5 +80,12 @@ public class Main {
         } catch (Exception e){
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    public static int[] lol(String data){
+        int[] coordinates = new int[2];
+        coordinates[0] = Integer.parseInt(data.substring(0,1));
+        coordinates[1] = Integer.parseInt(data.substring(1,2));
+        return coordinates;
     }
 }
