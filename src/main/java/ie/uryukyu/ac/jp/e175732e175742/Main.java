@@ -32,14 +32,14 @@ public class Main {
                         System.out.println("your turn");
                         line = console.readLine();
                         server.output(line);
-                        xy = lol(line);
+                        xy = transform(line);
                         ttt.handCircle(xy[0], xy[1]);
                         if(judge(ttt)){ break;}
                     } else {
                         System.out.println("client turn");
                         line = server.input();
                         System.out.println(line);
-                        xy = lol(line);
+                        xy = transform(line);
                         ttt.handCross(xy[0], xy[1]);
                         if(judge(ttt)){ break;}
                     }
@@ -62,14 +62,14 @@ public class Main {
                         System.out.println("your turn");
                         line = console.readLine();
                         client.output(line);
-                        xy = lol(line);
+                        xy = transform(line);
                         ttt.handCross(xy[0], xy[1]);
                         if(judge(ttt)){ break;}
                     } else {
                         System.out.println("server turn");
                         line = client.input();
                         System.out.println(line);
-                        xy = lol(line);
+                        xy = transform(line);
                         ttt.handCircle(xy[0], xy[1]);
                         if(judge(ttt)){ break;}
                     }
@@ -85,7 +85,7 @@ public class Main {
         }
     }
 
-    public static int[] lol(String data){
+    public static int[] transform(String data){
         int[] coordinates = new int[2];
         coordinates[0] = Integer.parseInt(data.substring(0,1));
         coordinates[1] = Integer.parseInt(data.substring(1,2));
