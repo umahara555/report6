@@ -49,7 +49,7 @@ public class TicTacToe {
         printTurn();
         for (i = 0; i < 3; i++) {
             for (j = 0; j < 3; j++) {
-                System.out.print(board[i][j]);
+                System.out.print(board[j][i]);
             }
             System.out.print("\n");
         }
@@ -112,18 +112,20 @@ public class TicTacToe {
                 if (board[x][0] == board[x][1] && board[x][1] == board[x][2] && board[x][2] == c) {
                     return c;
                 }
-            }//縦が揃う
-        for (int y = 0; y < 3; y++) {
-            if (board[0][y] == board[1][y] && board[1][y] == board[2][y] && board[2][y] == c) {
+            }
+            //縦が揃う
+            for (int y = 0; y < 3; y++) {
+                if (board[0][y] == board[1][y] && board[1][y] == board[2][y] && board[2][y] == c) {
+                   return c;
+                }
+            }
+            //斜めが揃う
+            if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == c) {
+                return c;
+            } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] == c) {
                 return c;
             }
-        }//斜めが揃う
-        if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == c) {
-            return c;
-        } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] == c) {
-            return c;
         }
-    }
         return 'e';
     }
 
