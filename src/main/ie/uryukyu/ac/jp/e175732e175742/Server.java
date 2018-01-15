@@ -7,17 +7,28 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
+/**
+ * サーバー
+ */
 public class Server {
-    int port;
-    ServerSocket serverSocket = null;
-    Socket socket = null;
-    BufferedReader streamIn = null;
-    PrintWriter streamOut = null;
+    private int port;
+    private ServerSocket serverSocket = null;
+    private Socket socket = null;
+    private BufferedReader streamIn = null;
+    private PrintWriter streamOut = null;
 
+    /**
+     * コンストラクタ
+     *
+     * @param port 通信に使用するポート番号を指定．
+     */
     public Server(int port){
         this.port = port;
     }
 
+    /**
+     * 通信を開始する．
+     */
     public void start(){
         try {
             serverSocket = new ServerSocket(port);
@@ -36,7 +47,9 @@ public class Server {
             System.out.println("Error: " + ioe.getMessage());
         }
     }
-
+    /**
+     * 受信をする．
+     */
     public String input(){
         try {
             return streamIn.readLine();
@@ -45,11 +58,18 @@ public class Server {
             return "pass";
         }
     }
-
+    /**
+     * 送信する．
+     *
+     * @param line 送信したい文字列
+     */
     public void  output(String line){
         streamOut.println(line);
     }
 
+    /**
+     * 通信を終了．
+     */
     public void close(){
         try {
             if (streamIn   != null)  streamIn.close();

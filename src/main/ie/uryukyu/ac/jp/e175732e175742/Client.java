@@ -7,19 +7,30 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * クライアント
+ */
 public class Client {
-    String serverName;
-    int port;
+    private String serverName; //接続先のホスト名
+    private int port; //ポート番号
+    private Socket socket = null;
+    private BufferedReader streamIn = null;
+    private PrintWriter streamOut = null;
 
-    Socket socket = null;
-    BufferedReader streamIn = null;
-    PrintWriter streamOut = null;
-
+    /**
+     * コンストラクタ
+     *
+     * @param serverName 接続先のホスト名
+     * @param port 通信に使用するポート番号
+     */
     public Client(String serverName ,int port){
         this.serverName = serverName;
         this.port = port;
     }
 
+    /**
+     * 通信を開始する．
+     */
     public void start(){
         try {
             socket = new Socket(serverName, port);
@@ -35,6 +46,9 @@ public class Client {
         }
     }
 
+    /**
+     * 受信をする．．
+     */
     public String input(){
         try {
             return streamIn.readLine();
@@ -44,10 +58,18 @@ public class Client {
         }
     }
 
+    /**
+     * 送信する．
+     *
+     * @param line 送信したい文字列
+     */
     public void output(String line){
         streamOut.println(line);
     }
 
+    /**
+     * 通信の終了．
+     */
     public void stop() {
         try {
             if (streamIn   != null)  streamIn.close();

@@ -55,7 +55,6 @@ public class Main {
                 client.start();
 
                 ttt = new TicTacToe();
-//                ttt.setTurn(!ttt.isTurn());
                 ttt.print();
                 int[] xy;
                 while(!line.equals("bye")){
