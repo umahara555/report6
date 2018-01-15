@@ -79,27 +79,6 @@ public class TicTacToe {
             System.out.printf("# player 'o' pointed at [%d][%d]\n", x, y);
             turn = false;
             print();
-
-            //横が揃う
-            if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] == 'o') {
-                System.out.println("Winner:o");
-            } else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][2] == 'o') {
-                System.out.println("Winner:o");
-            } else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][2] == 'o') {
-                System.out.println("Winner:o");
-            }//縦が揃う
-            else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[2][0] == 'o') {
-                System.out.println("Winner:o");
-            } else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[2][1] == 'o') {
-                System.out.println("Winner:o");
-            } else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[2][2] == 'o') {
-                System.out.println("Winner:o");
-            }//斜めが揃う
-            else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == 'o') {
-                System.out.println("Winner:o");
-            } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] == 'o') {
-                System.out.println("Winner:o");
-            }
         } else {
             System.out.println("# Current turn: 'x'");
             print();
@@ -107,44 +86,46 @@ public class TicTacToe {
     }
 
 
-        /**
-         * ユーザ'x'がボードに手を置く際に使用するメソッド。
-         *
-         * @param x ボードの横軸座標, 左から数えたインデックス。
-         * @param y ボードの縦軸座標, 上から数えたインデックス。
-         */
-        public void handCross ( int x, int y){
-            if (turn == false && board[x][y] == 'e') {
-                board[x][y] = 'x';
-                System.out.printf("# player 'x' pointed at [%d][%d]\n", x, y);
-                turn = true;
-                print();
-
-                //横が揃う
-                if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] == 'x') {
-                    System.out.println("Winner:x");
-                } else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][2] == 'x') {
-                    System.out.println("Winner:x");
-                } else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][2] == 'x') {
-                    System.out.println("Winner:x");
-                }//縦が揃う
-                else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[2][0] == 'x') {
-                    System.out.println("Winner:x");
-                } else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[2][1] == 'x') {
-                    System.out.println("Winner:x");
-                } else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[2][2] == 'x') {
-                    System.out.println("Winner:x");
-                }//斜めが揃う
-                else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == 'x') {
-                    System.out.println("Winner:x");
-                } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] == 'x') {
-                    System.out.println("Winner:x");
-                }
-            } else {
-                System.out.println("# Current turn: 'o'");
-                print();
-            }
+    /**
+     * ユーザ'x'がボードに手を置く際に使用するメソッド。
+     *
+     * @param x ボードの横軸座標, 左から数えたインデックス。
+     * @param y ボードの縦軸座標, 上から数えたインデックス。
+     */
+    public void handCross(int x, int y) {
+        if (turn == false && board[x][y] == 'e') {
+            board[x][y] = 'x';
+            System.out.printf("# player 'x' pointed at [%d][%d]\n", x, y);
+            turn = true;
+            print();
+        } else {
+            System.out.println("# Current turn: 'o'");
+            print();
         }
+    }
+
+    public char judge_winner() {
+        char[] winner = {'o', 'x'};
+        for (char c : winner){
+            //横が揃う
+            for (int x = 0; x < 3; x++) {
+                if (board[x][0] == board[x][1] && board[x][1] == board[x][2] && board[x][2] == c) {
+                    return c;
+                }
+            }//縦が揃う
+        for (int y = 0; y < 3; y++) {
+            if (board[0][y] == board[1][y] && board[1][y] == board[2][y] && board[2][y] == c) {
+                return c;
+            }
+        }//斜めが揃う
+        if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == c) {
+            return c;
+        } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] == c) {
+            return c;
+        }
+    }
+        return 'e';
+    }
 
     public boolean isTurn() {
         return turn;
